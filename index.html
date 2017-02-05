@@ -1,1 +1,16 @@
 My page
+<div>
+	<video id="video">Video stream not available.</video>
+	<button id="startbutton">Take photo</button>
+</div>
+<script>
+	(function(){
+		navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    			.then(function(stream) {
+        			video.srcObject = stream;
+        			video.play();
+    		}) .catch(function(err) {
+        		console.log("An error occured! " + err);
+    		});
+	});
+</script>
