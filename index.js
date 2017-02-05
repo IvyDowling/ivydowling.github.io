@@ -12,7 +12,7 @@ $(document).ready(function(){
             v2.src = (window.URL && window.URL.createObjectURL(stream))|| stream;
           }
           var hook = document.body;
-          hook.append(v2);
+          hook.appendChild(v2);
           hook.style.display = "block";
           v2.play();
         },
