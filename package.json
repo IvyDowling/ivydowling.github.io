@@ -1,0 +1,16 @@
+{
+  "name": "p5js",
+  "version": "1.0.0",
+  "description": "p5js demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "p5js",
+    "js",
+    "html"
+  ],
+  "author": "michaeldowlingiv@gmail.com",
+  "license": "ISC"
+}

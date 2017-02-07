@@ -1,24 +1,23 @@
-$(document).ready(function(){
-    function init() {
-      navigator.getUserMedia(
-        { audio: false, video: true},
-        function (stream){
-          var v2 = document.createElement("video")
-          v2.width = '1280';
-          v2.height = '720';
-          if (v2.mozSrcObject !== undefined) {
-            v2.mozSrcObject = stream;
-          } else {
-            v2.src = (window.URL && window.URL.createObjectURL(stream))|| stream;
-          }
-          var hook = document.body;
-          hook.appendChild(v2);
-          hook.style.display = "block";
-          v2.play();
-        },
-        function(error){
-          console.log(error);
-      });
+var yoff = 0.0;
+function setup() {
+    createCanvas(800, 800);
+}
+function draw() {
+    background(0);
+    translate(width / 2, height / 2);
+    var radius = 150;
+    rotate((PI / 2) * yoff);
+    beginShape();
+    var xoff = 0;
+    for (var a = 0; a < TWO_PI; a += 0.005) {
+        var offset = map(noise(xoff, yoff), 0, 1, -300, 100);
+        var r = radius + offset;
+        var x = r * cos(a);
+        var y = r * sin(a);
+        vertex(x, y);
+        xoff += 1;
     }
-    $("#initButton").click(init);
-});
+    endShape();
+
+    yoff += 0.01;
+}
