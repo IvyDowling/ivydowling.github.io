@@ -4,8 +4,8 @@ $(document).ready(function(){
         { audio: false, video: true},
         function (stream){
           var v2 = document.createElement("video")
-          v2.width = '160';
-          v2.height = '140';
+          v2.width = '1280';
+          v2.height = '720';
           if (v2.mozSrcObject !== undefined) {
             v2.mozSrcObject = stream;
           } else {
