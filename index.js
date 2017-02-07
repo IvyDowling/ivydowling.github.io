@@ -10,11 +10,8 @@ function draw() {
     beginShape();
     var xoff = 0;
     for (var a = 0; a < TWO_PI; a += 0.005) {
-        var offset = map(noise(xoff, yoff), 0, 1, -300, 100);
-        var r = radius + offset;
-        var x = r * cos(a);
-        var y = r * sin(a);
-        vertex(x, y);
+        var r = radius + map(noise(xoff, yoff), 0, 1, -300, 300);
+        vertex(r * cos(a), r * sin(a));
         xoff += 1;
     }
     endShape();
