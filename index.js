@@ -1,24 +1,24 @@
-var yoff = 0.0;
-function setup() {
-    var canvas = createCanvas(800, 800);
-    canvas.parent('canvas');
-}
-function draw() {
-    background(0);
-    translate(width / 2, height / 2);
-    var radius = 150;
-    rotate((PI / 2) * yoff);
-    beginShape();
-    var xoff = 0;
-    for (var a = 0; a < TWO_PI; a += 0.08) {
-        var r = radius + map(noise(xoff, yoff), 0, 1, -100, 300);
-        vertex(r * cos(a), r * sin(a));
-        xoff += 1;
-        fill(255, 255, 255, 20);
-    }
-    endShape();
-    yoff += 0.01;
-}
+// var yoff = 0.0;
+// function setup() {
+//     var canvas = createCanvas(800, 800);
+//     canvas.parent('canvas');
+// }
+// function draw() {
+//     background(0);
+//     translate(width / 2, height / 2);
+//     var radius = 150;
+//     rotate((PI / 2) * yoff);
+//     beginShape();
+//     var xoff = 0;
+//     for (var a = 0; a < TWO_PI; a += 0.08) {
+//         var r = radius + map(noise(xoff, yoff), 0, 1, -100, 300);
+//         vertex(r * cos(a), r * sin(a));
+//         xoff += 1;
+//         fill(255, 255, 255, 20);
+//     }
+//     endShape();
+//     yoff += 0.01;
+// }
 function spinMe(){
     navigator.getUserMedia(
         { audio: false, video: true},
