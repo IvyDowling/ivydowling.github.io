@@ -10,11 +10,27 @@ function draw() {
     beginShape();
     var xoff = 0;
     for (var a = 0; a < TWO_PI; a += 0.005) {
-        var r = radius + map(noise(xoff, yoff), 0, 1, -300, 300);
+        var r = radius + map(noise(xoff, yoff), 0, 1, -50, 400);
         vertex(r * cos(a), r * sin(a));
         xoff += 1;
     }
     endShape();
 
     yoff += 0.01;
+}
+function spinMe(){
+    navigator.getUserMedia(
+        { audio: false, video: true},
+        function (stream){
+            var v2 = document.getElementById("video");
+            if (v2.mozSrcObject !== undefined) {
+                v2.mozSrcObject = stream;
+            } else {
+                v2.src = (window.URL && window.URL.createObjectURL(stream))|| stream;
+            }
+            v2.play();
+        },
+        function(error){
+            console.log(error);
+        });
 }

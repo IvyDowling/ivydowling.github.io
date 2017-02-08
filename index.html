@@ -1,17 +1,33 @@
 <html>
 <head>
-    p5!
     <meta charset="UTF-8">
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script language="javascript" type="text/javascript" src="p5/p5.js"></script>
     <script language="javascript" src="p5/addons/p5.dom.js"></script>
     <script language="javascript" type="text/javascript" src="index.js"></script>
 </head>
-<body>
     <style>
         body{
             background-color: black;
         }
+        .web-cam {
+            width: 250px;
+            height: 250px;
+            border-radius: 125px;
+            -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+        }
+        video {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            z-index: -1;
+            top: -125px;
+            left: -125px;
+        }
     </style>
+    <div class="web-cam">
+        <video id="video" controls></video>
+    </div>
+    <button onclick="spinMe()">spin me</button>
 </body>
 </html>
