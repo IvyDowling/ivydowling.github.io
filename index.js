@@ -1,6 +1,7 @@
 var yoff = 0.0;
 function setup() {
-    createCanvas(800, 800);
+    var canvas = createCanvas(800, 800);
+    canvas.parent('canvas');
 }
 function draw() {
     background(0);
@@ -9,13 +10,12 @@ function draw() {
     rotate((PI / 2) * yoff);
     beginShape();
     var xoff = 0;
-    for (var a = 0; a < TWO_PI; a += 0.005) {
-        var r = radius + map(noise(xoff, yoff), 0, 1, -50, 400);
+    for (var a = 0; a < TWO_PI; a += 0.08) {
+        var r = radius + map(noise(xoff, yoff), 0, 1, -100, 300);
         vertex(r * cos(a), r * sin(a));
         xoff += 1;
     }
     endShape();
-
     yoff += 0.01;
 }
 function spinMe(){
