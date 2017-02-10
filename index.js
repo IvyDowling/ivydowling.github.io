@@ -14,7 +14,7 @@ function draw() {
         var r = radius + map(noise(xoff, yoff), 0, 1, -100, 300);
         vertex(r * cos(a), r * sin(a));
         xoff += 1;
-        fill(255, 255, 255, 20);
+        fill(255, 0, 255, 20);
     }
     endShape();
     yoff += 0.01;
