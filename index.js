@@ -1,4 +1,5 @@
 var yoff = 0.0;
+/*
 function setup() {
     var canvas = createCanvas(800, 800);
     canvas.parent('canvas');
@@ -19,6 +20,7 @@ function draw() {
     endShape();
     yoff += 0.01;
 }
+*/
 function spinMe(){
     navigator.getUserMedia(
         { audio: false, video: true},
