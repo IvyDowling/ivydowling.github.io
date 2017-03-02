@@ -22,7 +22,7 @@ function draw() {
 }
 */
 function spinMe(){
-    navigator.getUserMedia(
+    navigator.mediadevices.getUserMedia(
         { audio: false, video: true},
         function (stream){
             var v2 = document.getElementById("video");
