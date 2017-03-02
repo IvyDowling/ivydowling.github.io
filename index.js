@@ -1,6 +1,7 @@
-var yoff = 0.0;
 /*
 //Cool spinning thing in p5js
+
+var yoff = 0.0;
 function setup() {
     var canvas = createCanvas(800, 800);
     canvas.parent('canvas');
@@ -37,4 +38,4 @@ $(document).ready(function {
         function(error){
             console.log(error);
         });
-})
+});
