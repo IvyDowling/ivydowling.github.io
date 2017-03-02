@@ -23,7 +23,7 @@ function draw() {
     yoff += 0.01;
 }
 */
-$(document).ready(function {
+$(document).ready(function (){
     navigator.mediadevices.getUserMedia(
         { audio: false, video: true},
         function (stream){
