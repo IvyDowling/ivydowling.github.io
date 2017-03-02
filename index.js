@@ -1,5 +1,6 @@
 var yoff = 0.0;
 /*
+//Cool spinning thing in p5js
 function setup() {
     var canvas = createCanvas(800, 800);
     canvas.parent('canvas');
@@ -21,7 +22,7 @@ function draw() {
     yoff += 0.01;
 }
 */
-function spinMe(){
+$(document).ready(function {
     navigator.mediadevices.getUserMedia(
         { audio: false, video: true},
         function (stream){
@@ -36,4 +37,4 @@ function spinMe(){
         function(error){
             console.log(error);
         });
-}
+})
