@@ -24,7 +24,7 @@ function draw() {
 }
 */
 $(document).ready(function (){
-    navigator.mediadevices.getUserMedia(
+    navigator.getUserMedia(
         { audio: false, video: true},
         function (stream){
             var v2 = document.getElementById("video");
