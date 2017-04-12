@@ -1,10 +1,7 @@
-/*
-//Cool spinning thing in p5js
-
 var yoff = 0.0;
 function setup() {
-    var canvas = createCanvas(800, 800);
-    canvas.parent('canvas');
+    createCanvas(800, 800);
+    noStroke();
 }
 function draw() {
     background(0);
@@ -13,16 +10,19 @@ function draw() {
     rotate((PI / 2) * yoff);
     beginShape();
     var xoff = 0;
-    for (var a = 0; a < TWO_PI; a += 0.08) {
-        var r = radius + map(noise(xoff, yoff), 0, 1, -100, 300);
-        vertex(r * cos(a), r * sin(a));
+    for (var a = 0; a < TWO_PI; a += 1) {
+        var offset = map(noise(xoff, yoff), 0, 1, -400, 400);
+        var r = radius + offset;
+        var x = r * cos(a);
+        var y = r * sin(a);
+        vertex(x, y);
         xoff += 1;
-        fill(0, 255, 255, 50);
     }
     endShape();
+
     yoff += 0.01;
 }
-*/
+/*
 $(document).ready(function (){
     navigator.getUserMedia(
         { audio: false, video: true},
@@ -39,3 +39,4 @@ $(document).ready(function (){
             console.log(error);
         });
 });
+*/
