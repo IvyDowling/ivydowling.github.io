@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>1PGZ</title>
+</head>
+<body>
+	<style>
+		body{
+			margin: 10px;
+			position: absolute;
+		}
+		@page {
+		  size: letter;
+		}
+		img{
+			padding: 8px;
+		}
+		.rotate90 {
+		    -webkit-transform: rotate(90deg);
+		    -moz-transform: rotate(90deg);
+		    -o-transform: rotate(90deg);
+		    -ms-transform: rotate(90deg);
+		    transform: rotate(90deg);
+		}
+		.rotate270 {
+		    -webkit-transform: rotate(270deg);
+		    -moz-transform: rotate(270deg);
+		    -o-transform: rotate(270deg);
+		    -ms-transform: rotate(270deg);
+		    transform: rotate(270deg);
+			float: right;
+		}
+		@media print {
+			body {
+				position: relative;
+			}
+		}
+	</style>
+	<input id="imageLoad1" type="file" name="name" style="display: none;" />
+	<input id="imageLoad2" type="file" name="name" style="display: none;" />
+	<input id="imageLoad3" type="file" name="name" style="display: none;" />
+	<input id="imageLoad4" type="file" name="name" style="display: none;" />
+	<input id="imageLoad5" type="file" name="name" style="display: none;" />
+	<input id="imageLoad6" type="file" name="name" style="display: none;" />
+	<input id="imageLoad7" type="file" name="name" style="display: none;" />
+	<input id="imageLoad8" type="file" name="name" style="display: none;" />
+	<script>
+		var input1 = document.getElementById('imageLoad1');
+		input1.type = 'file';
+		input1.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image1').src = content;
+			}
+		}
+		var input2 = document.getElementById('imageLoad2');
+		input2.type = 'file';
+		input2.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image2').src = content;
+			}
+		}
+		var input3 = document.getElementById('imageLoad3');
+		input3.type = 'file';
+		input3.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image3').src = content;
+			}
+		}
+		var input4 = document.getElementById('imageLoad4');
+		input4.type = 'file';
+		input4.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image4').src = content;
+			}
+		}
+		var input5 = document.getElementById('imageLoad5');
+		input5.type = 'file';
+		input5.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image5').src = content;
+			}
+		}
+		var input6 = document.getElementById('imageLoad6');
+		input6.type = 'file';
+		input6.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image6').src = content;
+			}
+		}
+		var input7 = document.getElementById('imageLoad7');
+		input7.type = 'file';
+		input7.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image7').src = content;
+			}
+		}
+		var input8 = document.getElementById('imageLoad8');
+		input8.type = 'file';
+		input8.onchange = e => {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = readerEvent => {
+				var content = readerEvent.target.result;
+				document.getElementById('image8').src = content;
+			}
+		}
+
+	</script>
+
+
+
+	<img id="image1" src="image1.png" class="rotate90"  height="220" width="220"
+		onclick="document.getElementById('imageLoad1').click()">
+	<img id="image2" src="image2.png" class="rotate270" height="220" width="220"
+		onclick="document.getElementById('imageLoad2').click()">
+	<br>
+	<img id="image3" src="image3.png" class="rotate90"  height="220" width="220"
+		onclick="document.getElementById('imageLoad3').click()">
+	<img id="image4" src="image4.png" class="rotate270" height="220" width="220"
+		onclick="document.getElementById('imageLoad4').click()">
+	<br>
+	<img id="image5" src="image5.png" class="rotate90"  height="220" width="220"
+		onclick="document.getElementById('imageLoad5').click()">
+	<img id="image6" src="image6.png" class="rotate270" height="220" width="220"
+		onclick="document.getElementById('imageLoad6').click()">
+	<br>
+	<img id="image7" src="image7.png" class="rotate90"  height="220" width="220"
+		onclick="document.getElementById('imageLoad7').click()">
+	<img id="image8" src="image8.png" class="rotate270" height="220" width="220"
+		onclick="document.getElementById('imageLoad8').click()">
+
+
+</body>
+</html>
