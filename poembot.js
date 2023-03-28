@@ -38,7 +38,7 @@ function shuffle(array) {
     }
 
   function getAnUppercaseIndex(arr){
-      var startingPosition = -1;
+      var startingPosition = 0;
       for (i = 0; i < arr.length; i++){
           // first letter of the first gram is uppercase
           if (arr[i][0].substring(0,1).match(/[A-Z]/g)){
