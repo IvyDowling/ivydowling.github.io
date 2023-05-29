@@ -165,7 +165,7 @@ function peekCorp() {
 }
 
 function manualAdd() {
-    $("#corpus").append($("#inputAreaId").text())
+    $("#corpus").append($("#inputAreaId").val() + " ")
 }
 
 function clearCorp() {
