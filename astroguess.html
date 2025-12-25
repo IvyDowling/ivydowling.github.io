@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Zodiac Guessing Game</title>
+    <link rel="stylesheet" href="astro-style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>🔮 Guess the Zodiac Sign</h1>
+
+      <section id="celebrity" class="card">
+        <img id="celebrity-image" alt="Celebrity photo" />
+        <h2 id="celebrity-name"></h2>
+      </section>
+
+      <section id="buttons"></section>
+
+      <div id="result" hidden></div>
+
+      <button id="next" hidden class="next-btn">Next ➡</button>
+
+      <hr />
+
+      <section class="card scoreboard">
+        <h3>⭐ Scoreboard</h3>
+        <ul id="scoreboard"></ul>
+      </section>
+    </main>
+
+    <script src="astroguess.js"></script>
+  </body>
+</html>
+
