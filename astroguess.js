@@ -28,6 +28,13 @@ const people = [
   //  }
   //},
   { name: "Donald Trump" },
+  { name: "Enya" },
+  { name: "Michael Vick" },
+  { name: "Chelsea Manning" },
+  { name: "Edward Snowden" },
+  { name: "Henry Kissinger" },
+  { name: "Nicki Minaj" },
+  { name: "Cristiano Ronaldo" },
   { name: "Stevie Wonder" },
   { name: "Ray Charles" },
   { name: "Arthur Ashe" },
