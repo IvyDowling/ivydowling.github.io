@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        canvas {
+            display: block;
+        }
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 1000;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 5px 5px 5px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <div><strong>Conway's Game of Life</strong></div>
+        <div style="margin-top: 10px;">
+            <button onclick="resetPattern('random')">Random</button>
+            <button onclick="resetPattern('glider')">Gliders</button>
+            <button onclick="resetPattern('pulsar')">Pulsars</button>
+            <button onclick="resetPattern('rpentomino')">R-Pentomino</button>
+            <button onclick="resetPattern('gosper')">Gosper Gun</button>
+        </div>
+        <div style="margin-top: 10px;">
+            <button onclick="togglePause()">Pause/Play</button>
+            <button onclick="slowDown()">Slower</button>
+            <button onclick="speedUp()">Faster</button>
+        </div>
+        <div style="margin-top: 10px; font-size: 12px;">
+            Generation: <span id="gen">0</span> | Speed: <span id="speed">10</span> fps
+        </div>
+    </div>
+
+    <script>
+        let grid;
+        let cols;
+        let rows;
+        let resolution = 1; // Size of each cell in pixels
+        let generation = 0;
+        let paused = false;
+        let frameRateVal = 10;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            cols = floor(width / resolution);
+            rows = floor(height / resolution);
+            
+            grid = make2DArray(cols, rows);
+            resetPattern('random');
+            
+            frameRate(frameRateVal);
+        }
+
+        function draw() {
+            background(0);
+            
+            // Draw the grid
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    let x = i * resolution;
+                    let y = j * resolution;
+                    
+                    if (grid[i][j] == 1) {
+                        // Living cells - gradient based on position
+                        let hue = (i + j) % 360;
+                        fill(hue, 200, 255);
+                        noStroke();
+                        rect(x, y, resolution, resolution);
+                    }
+                }
+            }
+            
+            // Update grid if not paused
+            if (!paused) {
+                let next = make2DArray(cols, rows);
+                
+                // Compute next generation
+                for (let i = 0; i < cols; i++) {
+                    for (let j = 0; j < rows; j++) {
+                        let state = grid[i][j];
+                        let neighbors = countNeighbors(grid, i, j);
+                        
+                        // Conway's rules
+                        if (state == 0 && neighbors == 3) {
+                            next[i][j] = 1; // Birth
+                        } else if (state == 1 && (neighbors < 2 || neighbors > 3)) {
+                            next[i][j] = 0; // Death
+                        } else {
+                            next[i][j] = state; // Stay the same
+                        }
+                    }
+                }
+                
+                grid = next;
+                generation++;
+                document.getElementById('gen').textContent = generation;
+            }
+        }
+
+        function countNeighbors(grid, x, y) {
+            let sum = 0;
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    let col = (x + i + cols) % cols;
+                    let row = (y + j + rows) % rows;
+                    sum += grid[col][row];
+                }
+            }
+            sum -= grid[x][y];
+            return sum;
+        }
+
+        function make2DArray(cols, rows) {
+            let arr = new Array(cols);
+            for (let i = 0; i < arr.length; i++) {
+                arr[i] = new Array(rows);
+                for (let j = 0; j < arr[i].length; j++) {
+                    arr[i][j] = 0;
+                }
+            }
+            return arr;
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+            cols = floor(width / resolution);
+            rows = floor(height / resolution);
+            grid = make2DArray(cols, rows);
+            resetPattern('random');
+        }
+
+        // Pattern functions
+        function resetPattern(type) {
+            generation = 0;
+            grid = make2DArray(cols, rows);
+            
+            if (type === 'random') {
+                for (let i = 0; i < cols; i++) {
+                    for (let j = 0; j < rows; j++) {
+                        grid[i][j] = random(1) > 0.7 ? 1 : 0;
+                    }
+                }
+            } else if (type === 'glider') {
+                // Multiple gliders
+                for (let k = 0; k < 20; k++) {
+                    let x = floor(random(cols - 10));
+                    let y = floor(random(rows - 10));
+                    addGlider(x, y);
+                }
+            } else if (type === 'pulsar') {
+                // Multiple pulsars
+                for (let k = 0; k < 5; k++) {
+                    let x = floor(random(20, cols - 20));
+                    let y = floor(random(20, rows - 20));
+                    addPulsar(x, y);
+                }
+            } else if (type === 'rpentomino') {
+                // R-pentomino in center
+                let x = floor(cols / 2);
+                let y = floor(rows / 2);
+                addRPentomino(x, y);
+            } else if (type === 'gosper') {
+                // Gosper Glider Gun
+                let x = floor(cols / 4);
+                let y = floor(rows / 2);
+                addGosperGun(x, y);
+            }
+        }
+
+        function addGlider(x, y) {
+            let pattern = [
+                [0, 1, 0],
+                [0, 0, 1],
+                [1, 1, 1]
+            ];
+            addPattern(x, y, pattern);
+        }
+
+        function addPulsar(x, y) {
+            let pattern = [
+                [0,0,1,1,1,0,0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [1,0,0,0,0,1,0,1,0,0,0,0,1],
+                [1,0,0,0,0,1,0,1,0,0,0,0,1],
+                [1,0,0,0,0,1,0,1,0,0,0,0,1],
+                [0,0,1,1,1,0,0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,1,1,1,0,0,0,1,1,1,0,0],
+                [1,0,0,0,0,1,0,1,0,0,0,0,1],
+                [1,0,0,0,0,1,0,1,0,0,0,0,1],
+                [1,0,0,0,0,1,0,1,0,0,0,0,1],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,1,1,1,0,0,0,1,1,1,0,0]
+            ];
+            addPattern(x, y, pattern);
+        }
+
+        function addRPentomino(x, y) {
+            let pattern = [
+                [0, 1, 1],
+                [1, 1, 0],
+                [0, 1, 0]
+            ];
+            addPattern(x, y, pattern);
+        }
+
+        function addGosperGun(x, y) {
+            let pattern = [
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            ];
+            addPattern(x, y, pattern);
+        }
+
+        function addPattern(x, y, pattern) {
+            for (let i = 0; i < pattern.length; i++) {
+                for (let j = 0; j < pattern[i].length; j++) {
+                    let col = (x + j) % cols;
+                    let row = (y + i) % rows;
+                    if (col >= 0 && col < cols && row >= 0 && row < rows) {
+                        grid[col][row] = pattern[i][j];
+                    }
+                }
+            }
+        }
+
+        function togglePause() {
+            paused = !paused;
+        }
+
+        function speedUp() {
+            frameRateVal = min(60, frameRateVal + 5);
+            frameRate(frameRateVal);
+            document.getElementById('speed').textContent = frameRateVal;
+        }
+
+        function slowDown() {
+            frameRateVal = max(1, frameRateVal - 5);
+            frameRate(frameRateVal);
+            document.getElementById('speed').textContent = frameRateVal;
+        }
+
+        // Enable fullscreen on F key
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'f' || e.key === 'F') {
+                let fs = fullscreen();
+                fullscreen(!fs);
+            }
+        });
+    </script>
+</body>
+</html>
